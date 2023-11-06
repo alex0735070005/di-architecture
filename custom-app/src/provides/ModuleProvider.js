@@ -1,29 +1,20 @@
-class ModuleProvider {
-  constructor() {
-    if (!ModuleProvider.instance) {
-      ModuleProvider.instance = this;
-      ModuleProvider.using = 0;
-    }
+const cache = {};
+const MODULES_DIR = `../modules`;
 
-    return ModuleProvider.instance;
+module.exports = new Proxy(
+  {},
+  {
+    get(_, name) {
+      if (!cache[name]) {
+        const module = require(`${MODULES_DIR}/${name}`);
+        cache[name] = module;
+
+        return module;
+      }
+
+      console.log(cache);
+
+      return cache[name];
+    },
   }
-
-  register(modules) {
-    this.modules = modules;
-  }
-
-  get(name) {
-    ModuleProvider.using += 1;
-    console.log("PROVIDER USING", ModuleProvider.using);
-
-    if (!this.modules[name]) {
-      throw new Error(`Module '${name}' not registered.`);
-    }
-
-    return this.modules[name]();
-  }
-}
-
-const moduleProvider = new ModuleProvider();
-
-module.exports = moduleProvider;
+);

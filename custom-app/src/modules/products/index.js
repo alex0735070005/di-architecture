@@ -7,7 +7,7 @@ module.exports = {
   },
 
   async getCross() {
-    const usersModule = moduleProvider.get("users");
+    const usersModule = moduleProvider.users;
 
     const { products } = await dal.getList();
 
