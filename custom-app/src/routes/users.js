@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const moduleProvider = require("../provides/ModuleProvider");
+const { moduleLoader } = require("../modules");
 
 router.get("/", async (req, res) => {
   console.log("*** /users route handler ***");
-  const users = moduleProvider.users;
+  const users = moduleLoader.users;
 
   const data = await users.getList();
 
@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
 
 router.get("/cross", async (req, res) => {
   console.log("*** /users/cross route handler ***");
-  const users = moduleProvider.users;
+  const users = moduleLoader.users;
 
   const data = await users.getCross();
 

@@ -1,4 +1,4 @@
-const moduleProvider = require("../../provides/ModuleProvider");
+const { moduleLoader } = require("../");
 const dal = require("./dal");
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
   },
 
   async getCross() {
-    const usersModule = moduleProvider.users;
+    const usersModule = moduleLoader.users;
 
     const { products } = await dal.getList();
 

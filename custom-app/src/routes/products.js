@@ -1,10 +1,10 @@
 const express = require("express");
-const moduleProvider = require("../provides/ModuleProvider");
+const { moduleLoader } = require("../modules");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   console.log("*** /products route handler ***");
-  const products = moduleProvider.products;
+  const products = moduleLoader.products;
 
   const data = await products.getList();
   res.send(data);
@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 
 router.get("/cross", async (req, res) => {
   console.log("*** /products/cross route handler ***");
-  const products = moduleProvider.products;
+  const products = moduleLoader.products;
 
   const data = await products.getCross();
   res.send(data);
